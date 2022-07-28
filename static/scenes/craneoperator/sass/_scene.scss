@@ -1,0 +1,122 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+##{$name} {
+  .scene {
+    background: white;
+    bottom: 0;
+    font-size: 10px; // For relative em sizing and scaling.
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 200px;
+    transition: transform 0.5s;
+  }
+
+  .scene-underlay {
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateZ(0);
+    transition: opacity 0.5s;
+    cursor: pointer;
+  }
+
+  .responsive {
+    &.show {
+      .scene {
+        transform: translateX(90%);
+        cursor: pointer;
+      }
+      .scene-underlay {
+        pointer-events: none;
+        opacity: 0;
+      }
+    }
+  }
+  *:not(.responsive) .scene-underlay {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .scene__world {
+    margin-left: ((8em + 0.4em) * 0.3);
+  }
+
+  $button-background-diameter: 120px;
+  $button-margin: 16px;
+  $button-diameter: $button-background-diameter - $button-margin * 2;
+  $button-mobile-scale: .75;
+
+  .scene__play-tab {
+    border-radius: 50%;
+    bottom: 60px;
+    height: $button-background-diameter * $button-mobile-scale;
+    left: (-$button-background-diameter / 2) * $button-mobile-scale;
+    position: absolute;
+    width: $button-background-diameter * $button-mobile-scale;
+
+    @media (min-width: $button-bp) {
+      bottom: 80px;
+      height: $button-background-diameter;
+      left: (-$button-background-diameter / 2);
+      width: $button-background-diameter;
+    }
+
+    @media (min-width: 1025px) {
+      bottom: 15px;
+    }
+  }
+
+  // We need to force this play button on GPU for Safari for some reason so the z-index works.
+  // Some browsers also round down the pixel size of the GPU layer which trims the box-shadow,
+  // which is why we force this bigger parent on the GPU.
+  .scene__play-layer {
+    background: #364189;
+    border-radius: 50%;
+    height: $button-background-diameter * $button-mobile-scale;
+    position: relative;
+    -webkit-transform: translateZ(0);
+    width: $button-background-diameter * $button-mobile-scale;
+    z-index: 1;
+
+    @media (min-width: $button-bp) {
+      height: $button-background-diameter;
+      width: $button-background-diameter;
+    }
+  }
+
+  .scene__play {
+    @include ButtonColor(orangered);
+    background-size: 50%;
+    cursor: pointer;
+    font-size: inherit;
+    height: $button-diameter * $button-mobile-scale;
+    position: relative;
+    margin: $button-margin * $button-mobile-scale;
+    padding: 0;
+    width: $button-diameter * $button-mobile-scale;
+
+    @media (min-width: $button-bp) {
+      height: $button-diameter;
+      margin: $button-margin;
+      width: $button-diameter;
+    }
+  }
+}

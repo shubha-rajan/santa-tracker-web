@@ -1,0 +1,50 @@
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+##{$name} {
+  &.level--puzzle:before {
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 8px;
+    content: '';
+    display: none;
+    height: 300px;
+    opacity: 0.5;
+    position: absolute;
+    width: 200px;
+
+    @media (min-width: 661px) {
+      display: block;
+      left: calc(75% - 100px);
+      top: calc(50% - 150px);
+    }
+
+    @media (min-width: 1025px) {
+      left: calc(50% + 122px - 100px);
+      top: calc(50% - 150px);
+    }
+  }
+
+  &.level--0:before {
+    background-color: #9a51a0;
+    background-image: url(img/puzzle-1.png);
+  }
+
+  &.level--1:before {
+    background-color: #25baa3;
+    background-image: url(img/puzzle-2.png);
+  }
+}
