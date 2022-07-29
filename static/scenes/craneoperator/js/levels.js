@@ -28,7 +28,10 @@ app.levels.push(new app.Level({
   toolbox: app.blocks.miniBlockXml('maze_moveNorth') +
       app.blocks.miniBlockXml('maze_moveSouth') +
       app.blocks.miniBlockXml('maze_moveWest') +
-      app.blocks.miniBlockXml('maze_moveEast')
+      app.blocks.miniBlockXml('maze_moveEast') +
+      app.blocks.miniBlockXml('block_bear') +
+      app.blocks.miniBlockXml('block_blue') +
+      app.blocks.miniBlockXml('block_red')
 }));
 /**
  * Create levels. If you add or remove levels, be sure to adjust the total number of levels

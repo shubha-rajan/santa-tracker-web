@@ -165,10 +165,91 @@ app.blocks.install = function() {
       };
     };
 
+    var PROP_CONFIGS = {
+      blue: {
+        letter: 'bluey',
+        image: 'img/blue.svg',
+        tooltip: 'color blue',
+      },
+      red: {
+        letter: 'red',
+        image: 'img/red.svg',
+        tooltip: 'color red',
+      },
+      bear: {
+        letter: 'bear',
+        image: 'img/bear.svg',
+        tooltip: 'bear',
+      },
+    }
+
+    var generateBlocksForProps = function(type) {
+      
+      Blockly.Blocks['block_' + type] = generatePropBlock(type);
+      Blockly.Blocks['block_' + type + '_mini'] = generateMiniPropBlock(type);
+      Blockly.JavaScript['block_' + type] = generatePropCodeGenerator(type);
+      console.log(Blockly.Blocks)
+    };
+
+    var generatePropBlock = function(propType) {
+      var propTypeConfig = PROP_CONFIGS[propType];
+
+  
+      return {
+        helpUrl: '',
+
+        /**
+         * @this {Blockly.Block}
+         */
+        init: function() {
+          this.contextMenu = false;
+          this.setHSV(296, 0.491, 0.624);
+          this.appendDummyInput()
+              .appendField(new Blockly.FieldImage(propTypeConfig.image, 23, 32))
+              // .appendField(new Blockly.FieldDropdown(options), 'color');
+          this.setPreviousStatement(true);
+          this.setNextStatement(true);
+          this.setTooltip(propTypeConfig.tooltip);
+        }
+      };
+    };
+
+
+    var generateMiniPropBlock = function(propType) {
+      var propTypeConfig = PROP_CONFIGS[propType];
+      var config =  {
+        helpUrl: '',
+
+        /**
+         * @this {Blockly.Block}
+         */
+        init: function() {
+          this.contextMenu = false;
+          this.setHSV(296, 0.491, 0.624);
+          this.appendDummyInput()
+              .appendField(new Blockly.FieldImage(propTypeConfig.image, 23, 32));
+          this.setMini(true);
+          this.setTooltip(propTypeConfig.tooltip);
+        }
+      };
+      console.log('conf mini:', config)
+      return config
+    };
+
+
+    var generatePropCodeGenerator = function(type) {
+      return function() {
+        return 'api.color' + type + '(\'block_id_' + this.id + '\');\n';
+      };
+    };
+
     generateBlocksForDirection('North');
     generateBlocksForDirection('South');
     generateBlocksForDirection('West');
     generateBlocksForDirection('East');
+    generateBlocksForProps('blue');
+    generateBlocksForProps('red');
+    generateBlocksForProps('bear');
   })();
 
   function optionNumberRange(min, max) {

@@ -319,6 +319,18 @@ app.BlockRunnerApi.prototype = {
     this.move_(app.Direction.EAST, id);
   }),
 
+  bear: app.BlockRunnerApi.createApiMethod(function(id) {
+    console.log('bear')
+  }),
+
+  blue: app.BlockRunnerApi.createApiMethod(function(id) {
+    console.log('blue')
+  }),
+
+  red: app.BlockRunnerApi.createApiMethod(function(id) {
+    console.log('red')
+  }),
+
   moveJump: app.BlockRunnerApi.createApiMethod(function(id, length, direction) {
     this.jump_(app.Direction[direction.toUpperCase()], id, length);
   }),
